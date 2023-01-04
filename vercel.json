@@ -4,11 +4,14 @@
     {
       "src": "./index.js",
       "use": "@vercel/node"
+    },
+    {
+      "buildCommand": "yarn build"
     }
   ],
   "routes": [
     {
-      "src": "/",
+      "src": "/(.*)",
       "dest": "/"
     }
   ]
