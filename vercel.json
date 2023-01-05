@@ -6,10 +6,8 @@
     {
       "src": "index.ts",
       "use": "@vercel/node"
-    },
-    {
-      "buildCommand": "yarn build"
     }
+ 
   ],
   "routes": [
     {
