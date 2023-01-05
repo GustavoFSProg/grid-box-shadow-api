@@ -48,7 +48,7 @@ async function registerPost(req: Request, res: Response) {
         title: req.body.title,
         image: imagem,
         desc: req.body.desc,
-        price: req.body.price,
+        price: Number(req.body.price),
       },
     })
 

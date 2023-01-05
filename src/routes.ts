@@ -20,7 +20,7 @@ routes.put('/update/:id', userController.updates)
 routes.delete('/delete/:id', userController.RemoveUser)
 
 routes.post('/product', upload.single('image'), productsController.registerPost)
-routes.get('/get-product',productsController.getProduct)
+routes.get('/get-products',productsController.getProduct)
 routes.get('/profile/:id',productsController.profile)
 
 
