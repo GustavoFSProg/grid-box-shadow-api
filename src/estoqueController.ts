@@ -23,7 +23,7 @@ async function getAllEstoque(req: Request, res: Response) {
 
     return res.status(200).send({data, msg: "testando deu certo"})
   } catch (error) {
-    return res.status(400).send(error)
+    return res.status(500).send(error)
   }
 }
 
