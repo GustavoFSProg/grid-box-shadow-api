@@ -19,7 +19,7 @@ async function RegisterEstoque(req: Request, res: Response) {
 
 async function getAllEstoque(req: Request, res: Response) {
   try {
-    const data = await prisma.estoque.findMany()
+    const data = await prisma.estoque.findMany({})
 
     return res.status(200).send({data, msg: "testando deu certo"})
   } catch (error) {
