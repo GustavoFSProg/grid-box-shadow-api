@@ -26,7 +26,7 @@ routes.get('/profile/:id',productsController.profile)
 routes.put('/update-product/:id', upload.single('image'), productsController.UpdateProduct)
 
 routes.post('/register-estoque', estoqueController.RegisterEstoque)
-routes.get('/get-estoque', estoqueController.getAllEstoque)
+routes.get('/estoque', estoqueController.getAllEstoque)
 
 
 export default routes
