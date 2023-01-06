@@ -8,7 +8,7 @@ async function RegisterEstoque(req: Request, res: Response) {
     const estoque = await prisma.estoque.create({
       data: {
         idProduct: req.body.id_product,
-        estoque: Number(req.body.estoque),
+        qtd: Number(req.body.estoque),
       },
     })
     return res.status(200).json({ msg: 'success', estoque })
@@ -19,11 +19,11 @@ async function RegisterEstoque(req: Request, res: Response) {
 
 async function getAllEstoque(req: Request, res: Response) {
   try {
-    const data = await prisma.estoque.findMany({})
+    const data = await prisma.estoque.findMany()
 
-    return res.status(200).send({data, msg: "testando deu certo"})
+    return res.status(200).send(data)
   } catch (error) {
-    return res.status(500).send(error)
+    return res.status(400).send(error)
   }
 }
 
