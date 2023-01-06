@@ -27,4 +27,15 @@ async function getAllEstoque(req: Request, res: Response) {
   }
 }
 
-export default { RegisterEstoque, getAllEstoque }
+
+async function deletar(req: Request, res: Response) {
+  try {
+    const data = await prisma.estoque.deleteMany()
+
+    return res.status(200).send({data, msg: "testando deu certo"})
+  } catch (error) {
+    return res.status(400).send(error)
+  }
+}
+
+export default { RegisterEstoque, getAllEstoque, deletar }
