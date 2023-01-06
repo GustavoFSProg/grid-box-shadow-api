@@ -25,7 +25,7 @@ model Products {
   createdAt  DateTime @default(now())
 }
 
-model Estoque {
+model Estoques {
   id    String  @id @default(uuid()) @map("_id")
   idProduct String 
   qtd   Int
