@@ -25,10 +25,10 @@ model Products {
   createdAt  DateTime @default(now())
 }
 
-// model Estoque {
-//   id    String  @id @default(uuid()) @map("_id")
-//   id_product String 
-//   estoque   Int
+model Estoque {
+  id    String  @id @default(uuid()) @map("_id")
+  id_product String 
+  estoque   Int
   
 
-// }
+}
