@@ -4,7 +4,7 @@
   "main": "src/index.ts",
   "license": "MIT",
   "dependencies": {
-    "@prisma/client": "4.8.0",
+    "@prisma/client": "4.8.1",
     "@types/cors": "^2.8.13",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.15",
@@ -25,9 +25,8 @@
     "tsc": "^2.0.4",
     "typescript": "^4.9.4"
   },
-  
   "scripts": {
-        "start": "nodemon --watch ./  --exec 'ts-node index.ts' -e ts",
+    "start": "nodemon --watch ./  --exec 'ts-node index.ts' -e ts",
     "lint": "eslint src/**/*.ts",
     "build": "sucrase ./src -d ./dist --transforms typescript,imports"
   }
