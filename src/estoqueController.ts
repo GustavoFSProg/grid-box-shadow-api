@@ -7,7 +7,7 @@ async function RegisterEstoque(req: Request, res: Response) {
   try {
     const estoque = await prisma.estoque.create({
       data: {
-        id_product: req.body.id_product,
+        idProduct: req.body.id_product,
         estoque: Number(req.body.estoque),
       },
     })

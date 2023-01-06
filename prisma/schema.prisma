@@ -27,7 +27,7 @@ model Products {
 
 model Estoque {
   id    String  @id @default(uuid()) @map("_id")
-  id_product String 
+  idProduct String 
   estoque   Int
   
 
