@@ -12,12 +12,12 @@ routes.get('/', (req: Request, res: Response) => {
   return res.json({ msg: ` 🍀 Api running` })
 })
 
-routes.get('/getall', userController.getAll)
-routes.get('/one', userController.getOne)
-routes.post('/register', userController.register)
-routes.post('/login', userController.Login)
-routes.put('/update/:id', userController.updates)
-routes.delete('/delete/:id', userController.RemoveUser)
+// routes.get('/getall', userController.getAll)
+// routes.get('/one', userController.getOne)
+// routes.post('/register', userController.register)
+// routes.post('/login', userController.Login)
+// routes.put('/update/:id', userController.updates)
+// routes.delete('/delete/:id', userController.RemoveUser)
 
 routes.post('/product', upload.single('image'), productsController.registerPost)
 routes.get('/get-products',productsController.getProduct)
