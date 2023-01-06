@@ -26,7 +26,7 @@ routes.get('/profile/:id',productsController.profile)
 routes.put('/update-product/:id', upload.single('image'), productsController.UpdateProduct)
 
 routes.post('/register-estoque', estoqueController.RegisterEstoque)
-routes.get('/estoque', estoqueController.getAllEstoque)
+routes.get('/est', estoqueController.getAllEstoque)
 routes.delete('/del', estoqueController.deletar)
 
 
