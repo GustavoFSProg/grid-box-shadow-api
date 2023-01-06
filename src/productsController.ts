@@ -58,4 +58,37 @@ async function registerPost(req: Request, res: Response) {
   }
 }
 
-export default { registerPost, getProduct, profile }
+
+async function UpdateProduct(req: Request, res: Response) {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  })
+
+  cloudinary.uploader.upload(req.file?.path, function (result: any, error: any) {
+    imagem = result.secure_url
+    resultado = result
+    console.log(resultado)
+  })
+  try {
+
+    
+    const post = await prisma.products.update({
+            where: { id: req.params.id },
+
+      data: {
+        title: req.body.title,
+        image: imagem,
+        desc: req.body.desc,
+        price: Number(req.body.price),
+      },
+    })
+
+    return res.status(201).send({ post })
+  } catch (error) {
+    return res.status(400).send({ msg: 'ERROR!!', error })
+  }
+}
+
+export default { registerPost, UpdateProduct, getProduct, profile }

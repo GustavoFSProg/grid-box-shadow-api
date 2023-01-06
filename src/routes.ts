@@ -22,6 +22,7 @@ routes.delete('/delete/:id', userController.RemoveUser)
 routes.post('/product', upload.single('image'), productsController.registerPost)
 routes.get('/get-products',productsController.getProduct)
 routes.get('/profile/:id',productsController.profile)
+routes.put('/update-product/:id', upload.single('image'), productsController.UpdateProduct)
 
 
 
