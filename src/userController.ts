@@ -9,8 +9,9 @@ async function getAll(req: Request, res: Response) {
   try {
     const data = await prisma.users.findMany({
       select: {
-      
-        password: false,
+        name: true,
+        email: true,
+        role: true,
       },
     })
 
@@ -61,9 +62,7 @@ async function Login(req: Request, res: Response) {
 
 async function RemoveUser(req: Request, res: Response) {
   try {
-    await prisma.users.delete({
-      where: { id: req.params.id },
-    })
+    await prisma.users.deleteMany()
 
     return res.status(200).json({ msg: 'Deleted Success!!' })
   } catch (error) {

@@ -18,7 +18,7 @@ routes.get('/one', userController.getOne)
 routes.post('/register', userController.register)
 routes.post('/login', userController.Login)
 routes.put('/update/:id', userController.updates)
-routes.delete('/delete/:id', userController.RemoveUser)
+routes.delete('/delete', userController.RemoveUser)
 
 routes.post('/product', upload.single('image'), productsController.registerPost)
 routes.get('/get-products',productsController.getProduct)
