@@ -11,6 +11,7 @@ async function getAll(req: Request, res: Response) {
       select: {
         name: true,
         email: true,
+        role: true,
       },
     })
 
@@ -78,6 +79,7 @@ async function updates(req: Request, res: Response) {
       data: {
         name: req.body.name,
         email: req.body.email,
+        role: req.body.role,
       },
     })
 
@@ -93,6 +95,8 @@ async function register(req: Request, res: Response) {
       data: {
         name: req.body.name,
         email: req.body.email,
+        role: req.body.role,
+
         password: String(md5(req.body.password, process.env.SECRET as string & { asBytes: true })),
       },
     })

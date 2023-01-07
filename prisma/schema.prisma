@@ -6,29 +6,33 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 model Users {
-  id    String @id @default(uuid()) @map("_id")
-  name  String
-  email String @unique
+  id       String       @id @default(uuid()) @map("_id")
+  name     String
+  email    String       @unique
   password String
+  role     TipeUserRole  @default(admin)
 }
 
 model Products {
-  id    String  @id @default(uuid()) @map("_id")
-  title String? @unique
-  desc String?
-  price Int? @default(0)
-  image String?
-  createdAt  DateTime @default(now())
+  id        String   @id @default(uuid()) @map("_id")
+  title     String?  @unique
+  desc      String?
+  price     Int?     @default(0)
+  image     String?
+  createdAt DateTime @default(now())
 }
 
 model Estoques {
-  id    String  @id @default(uuid()) @map("_id")
-  idProduct String 
-  qtd   Int
-  
+  id        String @id @default(uuid()) @map("_id")
+  idProduct String
+  qtd       Int
+}
 
+enum TipeUserRole {
+  admin
+  user
 }

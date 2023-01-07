@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 
 async function RegisterEstoque(req: Request, res: Response) {
   try {
-    const estoque = await prisma.estoque.create({
+    const estoque = await prisma.estoques.create({
       data: {
         idProduct: req.body.id_product,
         qtd: Number(req.body.estoque),
@@ -19,7 +19,7 @@ async function RegisterEstoque(req: Request, res: Response) {
 
 async function getAllEstoque(req: Request, res: Response) {
   try {
-    const data = await prisma.estoque.findMany()
+    const data = await prisma.estoques.findMany()
 
     return res.status(200).send(data)
   } catch (error) {
@@ -30,7 +30,7 @@ async function getAllEstoque(req: Request, res: Response) {
 
 async function deletar(req: Request, res: Response) {
   try {
-    const data = await prisma.estoque.deleteMany()
+    const data = await prisma.estoques.deleteMany()
 
     return res.status(200).send({data, msg: "testando deu certo"})
   } catch (error) {
