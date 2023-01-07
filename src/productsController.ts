@@ -11,7 +11,7 @@ var resultado = ''
 async function getProduct(req: Request, res: Response) {
   try {
     const data = await prisma.products.findMany({
-      take: 6
+      take: 8
     })
 
     return res.status(200).json(data)
