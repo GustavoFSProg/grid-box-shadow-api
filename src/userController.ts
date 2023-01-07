@@ -11,7 +11,7 @@ async function getAll(req: Request, res: Response) {
       select: {
         name: true,
         email: true,
-        role: true,
+        // role: true,
       },
     })
 
