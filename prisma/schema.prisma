@@ -14,13 +14,14 @@ model Users {
   name     String
   email    String       @unique
   password String
-  role     TipeUserRole  @default(admin)
+  role     TipeUserRole @default(admin)
 }
 
 model Products {
   id        String   @id @default(uuid()) @map("_id")
   title     String?  @unique
   desc      String?
+  category  String?
   price     Int?     @default(0)
   image     String?
   createdAt DateTime @default(now())
@@ -35,4 +36,10 @@ model Estoques {
 enum TipeUserRole {
   admin
   user
+}
+
+model Categorys {
+  id        String   @id @default(uuid()) @map("_id")
+  name      String
+  createdAt DateTime @default(now())
 }

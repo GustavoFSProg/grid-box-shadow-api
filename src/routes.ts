@@ -4,6 +4,7 @@ import uploadConfig from './uploadConfig'
 import multer from 'multer'
 import productsController from './productsController'
 import estoqueController from './estoqueController'
+import categoryController from './categoryController'
 
 const routes = Router()
 
@@ -28,6 +29,9 @@ routes.put('/update-product/:id', upload.single('image'), productsController.Upd
 routes.post('/register-estoque', estoqueController.RegisterEstoque)
 routes.get('/estoque', estoqueController.getAllEstoque)
 routes.delete('/del', estoqueController.deletar)
+
+routes.get('/get-category', categoryController.getAll)
+routes.post('/register-category', categoryController.register)
 
 
 export default routes
