@@ -14,7 +14,7 @@ routes.get('/', (req: Request, res: Response) => {
   return res.json({ msg: ` 🍀 Api running` })
 })
 
-routes.get('/getall', userController.getAll)
+routes.get('/get-users', userController.getAll)
 routes.get('/one', userController.getOne)
 routes.post('/register', userController.register)
 routes.post('/login', userController.Login)
@@ -27,10 +27,10 @@ routes.get('/profile/:id',productsController.profile)
 routes.put('/update-product/:id', upload.single('image'), productsController.UpdateProduct)
 
 routes.post('/register-estoque', estoqueController.RegisterEstoque)
-routes.get('/estoque', estoqueController.getAllEstoque)
+routes.get('/get-estoque', estoqueController.getAllEstoque)
 routes.delete('/del', estoqueController.deletar)
 
-routes.get('/get-category', categoryController.getAll)
+routes.get('/get-categorys', categoryController.getAll)
 routes.post('/register-category', categoryController.register)
 
 
