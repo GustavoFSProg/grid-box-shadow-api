@@ -43,3 +43,17 @@ model Categorys {
   name      String
   createdAt DateTime @default(now())
 }
+
+
+model Cart {
+  id       String       @id @default(uuid()) @map("_id")
+  user_id     String?
+  product_id    String      
+  qtd Int
+  subtotal     Float
+  price       Float
+  total     Float
+  createdAt DateTime @default(now())
+
+}
+

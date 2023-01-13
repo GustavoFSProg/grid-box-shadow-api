@@ -5,6 +5,7 @@ import multer from 'multer'
 import productsController from './productsController'
 import estoqueController from './estoqueController'
 import categoryController from './categoryController'
+import cartController from './cartController'
 
 const routes = Router()
 
@@ -32,6 +33,10 @@ routes.delete('/del', estoqueController.deletar)
 
 routes.get('/get-categorys', categoryController.getAll)
 routes.post('/register-category', categoryController.register)
+
+routes.post('/register-cart', cartController.register)
+routes.get('/get-cart', cartController.getAll)
+
 
 
 export default routes
