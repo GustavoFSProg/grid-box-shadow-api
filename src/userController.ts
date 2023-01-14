@@ -7,14 +7,15 @@ const prisma = new PrismaClient()
 
 async function getAll(req: Request, res: Response) {
   try {
-    const data = await prisma.users.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-      },
-    })
+    const data = await prisma.users
+      .findMany
+      //   select: {
+      //     id: true,
+      //     name: true,
+      //     email: true,
+      //     role: true,
+      //   },
+      ()
 
     return res.status(200).json(data)
   } catch (error) {
@@ -27,10 +28,10 @@ async function getOne(req: Request, res: Response) {
     const data = await prisma.users.findFirst({
       where: { name: req.body.name },
 
-      select: {
-        name: true,
-        email: true,
-      },
+      // select: {
+      //   name: true,
+      //   email: true,
+      // },
     })
 
     return res.status(200).json(data)
@@ -53,9 +54,9 @@ async function Login(req: Request, res: Response) {
       },
     })
 
-   const token = await generateToken(data)
+    const token = await generateToken(data)
 
-    return res.status(200).json({data, token})
+    return res.status(200).json({ data, token })
   } catch (error) {
     return res.status(400).json(error)
   }
@@ -95,7 +96,16 @@ async function register(req: Request, res: Response) {
         name: req.body.name,
         email: req.body.email,
         role: req.body.role,
-
+        cpf: req.body.cpf,
+        street: req.body.street,
+        bairro: req.body.bairro,
+        city: req.body.city,
+        state: req.body.state,
+        number: req.body.number,
+        complemento: req.body.complemento,
+        celular: req.body.celular,
+        fone: req.body.fone,
+        cep: req.body.cep,
         password: String(md5(req.body.password, process.env.SECRET as string & { asBytes: true })),
       },
     })

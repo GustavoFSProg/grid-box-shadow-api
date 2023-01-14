@@ -14,6 +14,16 @@ model Users {
   name     String
   email    String       @unique
   password String
+  cpf      String? @default("CPF")
+  street   String? @default("Rua")
+  number   String? @default("222")
+  complemento   String?  @default("3")
+  celular String?  @default("9999")
+  fone String?  @default("9999")
+  cep  String?  @default("CEP")
+  bairro   String? @default("barrr")
+  city     String? @default("cidade")
+  state    String? @default("RSS")
   role     TipeUserRole @default(admin)
 }
 
@@ -44,16 +54,13 @@ model Categorys {
   createdAt DateTime @default(now())
 }
 
-
 model Cart {
-  id       String       @id @default(uuid()) @map("_id")
-  user_id     String?
-  product_id    String      
-  qtd Int
-  subtotal     Float
-  price       Float
-  total     Float
-  createdAt DateTime @default(now())
-
+  id         String   @id @default(uuid()) @map("_id")
+  user_id    String?
+  product_id String
+  qtd        Int
+  subtotal   Float
+  price      Float
+  total      Float
+  createdAt  DateTime @default(now())
 }
-
