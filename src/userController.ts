@@ -56,7 +56,7 @@ async function Login(req: Request, res: Response) {
 
     const token = await generateToken(data)
 
-    return res.status(200).json({ data, token })
+    return res.status(200).json( token)
   } catch (error) {
     return res.status(400).json(error)
   }
