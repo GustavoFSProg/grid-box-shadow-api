@@ -9,13 +9,15 @@ async function getAll(req: Request, res: Response) {
   try {
     const data = await prisma.users
       .findMany
-      //   select: {
-      //     id: true,
-      //     name: true,
-      //     email: true,
-      //     role: true,
-      //   },
-      ()
+       ({ select: {
+          id: true,
+          name: true,
+          email: true,
+          role: true,
+          city: true,
+          state: true,
+        }})
+      
 
     return res.status(200).json(data)
   } catch (error) {
