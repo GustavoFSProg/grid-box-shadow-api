@@ -9,6 +9,25 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
+enum TipeUserRole {
+  admin
+  user
+}
+
+
+enum PaymnetTypeEnum {
+  null
+  start
+  processing
+  pending
+  approved
+  refused
+  refunded
+  chargeback
+  error
+}
+
 model Users {
   id          String       @id @default(uuid()) @map("_id")
   name        String
@@ -43,10 +62,6 @@ model Estoques {
   qtd       Int
 }
 
-enum TipeUserRole {
-  admin
-  user
-}
 
 model Categorys {
   id        String   @id @default(uuid()) @map("_id")
@@ -66,5 +81,29 @@ model Item {
   price     Float
   product   String
   cart      String
+  createdAt DateTime @default(now())
+}
+
+
+
+model Transactions {
+  id        String   @id @default(uuid()) @map("_id")
+  cartCode  String 
+  paymentType PaymnetTypeEnum @default(null)
+  installments   String
+  total      Float
+  transactionId  String
+  processorResponse  String
+  customerEmail String
+  customerName String
+  customerMobile String
+  customerDocument String
+  billingAdress String
+  billingNumber String
+  billingNeightborhood String
+  billingState  String
+  billingCity  String
+  billingZipCode  String
+
   createdAt DateTime @default(now())
 }
