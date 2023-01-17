@@ -91,24 +91,42 @@ async function updates(req: Request, res: Response) {
 
 async function register(req: Request, res: Response) {
   try {
-    await prisma.users.create({
-      data: {
-        name: req.body.name,
-        email: req.body.email,
-        role: req.body.role,
-        cpf: req.body.cpf,
-        street: req.body.street,
-        bairro: req.body.bairro,
-        city: req.body.city,
-        state: req.body.state,
-        number: req.body.number,
-        complemento: req.body.complemento,
-        celular: req.body.celular,
-        fone: req.body.fone,
-        cep: req.body.cep,
-        password: String(md5(req.body.password, process.env.SECRET as string & { asBytes: true })),
-      },
-    })
+
+const datas = await prisma.users.findFirst({
+      where: { email: req.body.email },
+
+})
+    
+    console.log(datas)
+    
+    if (datas === null) {
+
+       await prisma.users.create({
+        data: {
+          name: req.body.name,
+          email: req.body.email,
+          role: req.body.role,
+          cpf: req.body.cpf,
+          street: req.body.street,
+          bairro: req.body.bairro,
+          city: req.body.city,
+          state: req.body.state,
+          number: req.body.number,
+          complemento: req.body.complemento,
+          celular: req.body.celular,
+          fone: req.body.fone,
+          cep: req.body.cep,
+          password: String(md5(req.body.password, process.env.SECRET as string & { asBytes: true })),
+        },
+      })
+  
+    }
+    else {
+      return res.status(400).json({ msg: "Email ja existente!" })
+
+     
+    
+    }
 
     return res.status(200).json({ msg: 'Success!!' })
   } catch (error) {
