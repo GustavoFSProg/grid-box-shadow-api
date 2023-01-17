@@ -16,18 +16,18 @@ async function getAll(req: Request, res: Response) {
   }
 }
 
-async function getOne(req: Request, res: Response) {
-  try {
-    const data = await prisma.cart.findFirst({
-      where: { product_id: req.body.produto_id },
+// async function getOne(req: Request, res: Response) {
+//   try {
+//     const data = await prisma.cart.findFirst({
+//       where: { product_id: req.body.produto_id },
 
-    })
+//     })
 
-    return res.status(200).json(data)
-  } catch (error) {
-    return res.status(400).json(error)
-  }
-}
+//     return res.status(200).json(data)
+//   } catch (error) {
+//     return res.status(400).json(error)
+//   }
+// }
 
 
 
@@ -53,13 +53,8 @@ async function register(req: Request, res: Response) {
   try {
 
     await prisma.cart.create({
-      data: {
-         user_id: req.body.user_id,
-        product_id : req.body.product_id ,
-        qtd: Number(req.body.qtd),
-        subtotal: Number (req.body.subtotal),
+      data:<any> {
         price: Number(req.body.price),
-        total: Number(req.body.total),
 
       },
     })
@@ -70,4 +65,15 @@ async function register(req: Request, res: Response) {
   }
 }
 
-export default { getAll,getOne,register }
+
+async function RemoveCart(req: Request, res: Response) {
+  try {
+    await prisma.cart.deleteMany()
+
+    return res.status(200).json({ msg: 'Deleted Success!!' })
+  } catch (error) {
+    return res.status(400).json(error)
+  }
+}
+
+export default { getAll,register, RemoveCart }

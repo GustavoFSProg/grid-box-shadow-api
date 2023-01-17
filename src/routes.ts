@@ -36,6 +36,7 @@ routes.post('/register-category', categoryController.register)
 
 routes.post('/register-cart', cartController.register)
 routes.get('/get-cart', cartController.getAll)
+routes.delete('/delete-cart', cartController.RemoveCart)
 
 
 
