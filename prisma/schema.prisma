@@ -16,18 +16,6 @@ enum TipeUserRole {
 }
 
 
-enum PaymnetTypeEnum {
-  null
-  start
-  processing
-  pending
-  approved
-  refused
-  refunded
-  chargeback
-  error
-}
-
 model Users {
   id          String       @id @default(uuid()) @map("_id")
   name        String
@@ -85,11 +73,11 @@ model Item {
 }
 
 
-
 model Transactions {
   id        String   @id @default(uuid()) @map("_id")
   cartCode  String 
-  paymentType PaymnetTypeEnum @default(null)
+  paymentType   PaymentTypeEnum @default(null)
+  status StatusTypeEnum @default(start)
   installments   String
   total      Float
   transactionId  String
@@ -106,4 +94,24 @@ model Transactions {
   billingZipCode  String
 
   createdAt DateTime @default(now())
+}
+
+
+
+enum StatusTypeEnum {
+  null
+  start
+  processing
+  pending
+  approved
+  refused
+  refunded
+  chargeback
+  error
+}
+
+enum PaymentTypeEnum {
+  billing 
+  credit_card
+  null
 }

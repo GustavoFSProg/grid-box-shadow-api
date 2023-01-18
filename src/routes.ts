@@ -6,6 +6,7 @@ import productsController from './productsController'
 import estoqueController from './estoqueController'
 import categoryController from './categoryController'
 import cartController from './cartController'
+import transationController from './transationController'
 
 const routes = Router()
 
@@ -38,6 +39,11 @@ routes.post('/register-cart', cartController.register)
 routes.get('/get-cart', cartController.getAll)
 routes.delete('/delete-cart/:id', cartController.RemoveOneCart)
 routes.put('/update-cart/:id', cartController.update)
+
+routes.post('/register-trans', transationController.register)
+routes.get('/get-trans', transationController.getAll)
+routes.delete('/remover-trans', transationController.RemoveAll)
+
 
 
 
