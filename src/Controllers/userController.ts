@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import md5 from 'md5'
-import { generateToken } from './token'
+import { generateToken } from '../token'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()

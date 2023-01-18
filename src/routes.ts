@@ -1,12 +1,12 @@
-import userController from './userController'
+import userController from './Controllers/userController'
 import { Request, Response, Router } from 'express'
 import uploadConfig from './uploadConfig'
 import multer from 'multer'
-import productsController from './productsController'
-import estoqueController from './estoqueController'
-import categoryController from './categoryController'
-import cartController from './cartController'
-import transationController from './transationController'
+import productsController from './Controllers/productsController'
+import estoqueController from './Controllers/estoqueController'
+import categoryController from './Controllers/categoryController'
+import cartController from './Controllers/cartController'
+import transationController from './Controllers/transationController'
 
 const routes = Router()
 
