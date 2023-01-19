@@ -9,12 +9,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 enum TipeUserRole {
   admin
   user
 }
-
 
 model Users {
   id          String       @id @default(uuid()) @map("_id")
@@ -50,7 +48,6 @@ model Estoques {
   qtd       Int
 }
 
-
 model Categorys {
   id        String   @id @default(uuid()) @map("_id")
   name      String
@@ -58,7 +55,7 @@ model Categorys {
 }
 
 model Cart {
-  id String @id @default(uuid()) @map("_id")
+  id        String   @id @default(uuid()) @map("_id")
   price     Float
   createdAt DateTime @default(now())
 }
@@ -72,31 +69,32 @@ model Item {
   createdAt DateTime @default(now())
 }
 
-
 model Transactions {
-  id        String   @id @default(uuid()) @map("_id")
-  cartCode  String 
-  paymentType   PaymentTypeEnum @default(null)
-  status StatusTypeEnum @default(start)
-  installments   String
-  total      Float
-  transactionId  String
-  processorResponse  String
-  customerEmail String
-  customerName String
-  customerMobile String
-  customerDocument String
-  billingAdress String
-  billingNumber String
+  id                   String          @id @default(uuid()) @map("_id")
+  cartCode             String
+  paymentType          PaymentTypeEnum @default(null)
+  status               StatusTypeEnum  @default(start)
+  installments         String
+  total                Float
+  transactionId        String
+  processorResponse    String
+  creditCardNumber     String
+  creditCardExpiration String
+  creditCardHolderName String
+  creditCardCvv        String
+  customerEmail        String
+  customerName         String
+  customerMobile       String
+  customerDocument     String
+  billingAdress        String
+  billingNumber        String
   billingNeightborhood String
-  billingState  String
-  billingCity  String
-  billingZipCode  String
+  billingState         String
+  billingCity          String
+  billingZipCode       String
 
   createdAt DateTime @default(now())
 }
-
-
 
 enum StatusTypeEnum {
   null
@@ -111,7 +109,7 @@ enum StatusTypeEnum {
 }
 
 enum PaymentTypeEnum {
-  billing 
+  billing
   credit_card
   null
 }

@@ -1,7 +1,8 @@
 import { Request, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
 import * as Yup from 'yup'
-import {parsePhoneNumber} from 'libphonenumber-js'
+import { parsePhoneNumber } from 'libphonenumber-js'
+import { cnpj, cpf } from 'cpf-cnpj-validator'
 
 const prisma = new PrismaClient()
 
@@ -46,8 +47,37 @@ async function register(req: Request, res: Response) {
       customerMobile: Yup.string().required()
         .test("is-valid-mobile",
         "${path} is not a valide mobile number",
-        (value: any) => parsePhoneNumber(value, "BR").isValid())  
+          (value: any) => parsePhoneNumber(value, "BR").isValid()),
+       customerDocument: Yup.string().required()
+        .test("is-valid-document",
+        "${path} is not a valide CPF / CNPJ",
+          (value: any) => cpf.isValid(value) || cnpj.isValid(value)),  
+       
+        billingAdress: Yup.string().required(),
+        billingNumber: Yup.string().required(),
+        billingNeightborhood: Yup.string().required(),
+        billingState: Yup.string().required(),
+        billingCity: Yup.string().required(),
+      billingZipCode: Yup.string().required(), 
+      creditCardNumber: Yup.string()
+        .when("paymentType", (paymentType, schema) => {
+        return paymentType === "credit_card" ?   schema.required() : schema
+        }),
+      
+       creditCardExpiration: Yup.string()
+        .when("paymentType", (paymentType, schema) => {
+        return paymentType === "credit_card" ?   schema.required() : schema
+        }),
+        creditCardHolderName: Yup.string()
+        .when("paymentType", (paymentType, schema) => {
+        return paymentType === "credit_card" ?   schema.required() : schema
+        }),
+         creditCardCvv: Yup.string()
+        .when("paymentType", (paymentType, schema) => {
+        return paymentType === "credit_card" ?   schema.required() : schema
+      })
     })
+       
     
     if (!(await schema.isValid(req.body))) {
       return res.json({msg:  "Erro on Validate Schema"})
