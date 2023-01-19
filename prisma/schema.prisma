@@ -72,26 +72,26 @@ model Item {
 model Transactions {
   id                   String          @id @default(uuid()) @map("_id")
   cartCode             String
-  paymentType          PaymentTypeEnum @default(null)
+  paymentType          PaymentTypeEnum @default(billet)
   status               StatusTypeEnum  @default(start)
-  installments         String
-  total                Float
-  transactionId        String
-  processorResponse    String
-  creditCardNumber     String
-  creditCardExpiration String
-  creditCardHolderName String
-  creditCardCvv        String
-  customerEmail        String
-  customerName         String
-  customerMobile       String
-  customerDocument     String
-  billingAdress        String
-  billingNumber        String
-  billingNeightborhood String
-  billingState         String
-  billingCity          String
-  billingZipCode       String
+  installments         Int? @default(00)
+  total                Float?
+  transactionId        String?  @default("Deu Error")
+  processorResponse    String?  @default("Deu Error")
+  creditCardNumber     String?  @default("Deu Error")
+  creditCardExpiration String?  @default("Deu Error")
+  creditCardHolderName String?  @default("Deu Error")
+  creditCardCvv        String?  @default("Deu Error")
+  customerEmail        String?  @default("Deu Error")
+  customerName         String?  @default("Deu Error")
+  customerMobile       String?  @default("Deu Error")
+  customerDocument     String?  @default("Deu Error")
+  billingAdress        String?  @default("Deu Error")
+  billingNumber        String?  @default("Deu Error")
+  billingNeightborhood String?  @default("Deu Error")
+  billingState         String?  @default("Deu Error")
+  billingCity          String?  @default("Deu Error")
+  billingZipCode       String?  @default("Deu Error")
 
   createdAt DateTime @default(now())
 }
@@ -109,7 +109,7 @@ enum StatusTypeEnum {
 }
 
 enum PaymentTypeEnum {
-  billing
+  billet
   credit_card
   null
 }

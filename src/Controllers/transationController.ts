@@ -31,16 +31,17 @@ async function getAll(req: Request, res: Response) {
 //     return res.status(400).json(error)
 //   }
 // }
+ 
 
 async function register(req: Request, res: Response) {
   try {
     const schema = Yup.object({
       cartCode: Yup.string().required(),
-      installments: Yup.number()
-        .min(1)
-        .when('paymentType', (paymentType, schema) =>
-          paymentType === 'credit_card' ? schema.max(12) : schema.max(1)
-        ),
+      installments: Yup.number().min(1).max(12),
+        // .min(1)
+        // .when('paymentType', (paymentType, schema) =>
+        //   paymentType === 'credit_card' ? schema.max(12) : schema.max(1)
+        // ),
 
       paymentType: Yup.mixed().oneOf(['billet', 'credit_card']).required(),
       total: Yup.string().required(),
@@ -55,12 +56,13 @@ async function register(req: Request, res: Response) {
       //   "${path} is not a valide CPF / CNPJ",
       //     (value: any) => cpf.isValid(value) || cnpj.isValid(value)),
 
-      billingAdress: Yup.string().required(),
+customerDocument: Yup.string().required(),
+      // billingAdress: Yup.string().required(),
       billingNumber: Yup.string().required(),
       billingNeightborhood: Yup.string().required(),
       billingState: Yup.string().required(),
-      billingCity: Yup.string().required(),
-      billingZipCode: Yup.string().required(),
+      // billingCity: Yup.string().required(),
+      // billingZipCode: Yup.string().required(),
       creditCardNumber: Yup.string().when('paymentType', (paymentType, schema) => {
         return paymentType === 'credit_card' ? schema.required() : schema
       }),
@@ -79,32 +81,51 @@ async function register(req: Request, res: Response) {
     if (!(await schema.isValid(req.body))) {
       return res.json({ msg: 'Erro on Validate Schema' })
     } else {
-      return res.json({ msg: 'Schema Success' })
+        
+      await prisma.transactions.create({
+        data: <any>{
+          cartCode: req.body.cartCode,
+          paymentType: req.body.paymentType,
+          status: req.body.status,
+          installments: req.body.installments,
+
+
+          total: Number(req.body.total),
+          // total: req.body.total,
+          transactionId: req.body.transactionId,
+          processorResponse: req.body.processorResponse,
+
+
+          customerEmail: req.body.customerEmail,
+          customerName: req.body.customerName,
+          customerMobile: req.body.customerMobile,
+          customerDocument: req.body.customerDocument,
+
+          billingAdress: req.body.billingAdress,
+          billingNumber: req.body.billingNumber,
+          billingNeightborhood: req.body.billingNeightborhood,
+          billingState: req.body.billingState,
+          billingCity: req.body.billingCity,
+          billingZipCode: req.body.billingZipCode,
+
+
+          creditCardNumber: req.body.creditCardNumber,
+
+          creditCardHolderName: req.body.creditCardHolderName,
+          creditCardCvv: req.body.creditCardCvv,
+          creditCardExpiration: req.body.creditCardExpiration,
+
+       
+        
+      
+        }
+})
+      
+    
     }
+    
 
-    // await prisma.transactions.create({
-    //   data: <any>{
-    //     cartCode: req.body.cartCode,
-    //     paymentType: req.body.paymentType,
-    //     status: req.body.status,
-    //     installments: req.body.installments,
-    //     total: Number(req.body.total),
-    //     transactionId: req.body.transactionId,
-    //     processorResponse: req.body.processorResponse,
-    //     customerEmail: req.body.customerEmail,
-    //     customerName: req.body.customerName,
-    //     customerMobile: req.body.customerMobile,
-    //     customerDocument: req.body.customerDocument,
-    //     billingAdress: req.body.billingAdress,
-    //     billingNumber: req.body.billingNumber,
-    //     billingNeightborhood: req.body.billingNeightborhood,
-    //     billingState: req.body.billingState,
-    //     billingCity: req.body.billingCity,
-    //     billingZipCode: req.body.billingZipCode,
-    //   },
-    // })
-
-    // return res.status(200).json({ msg: 'Success!!' })
+    return res.status(200).json({ msg: 'Register Success!!' })
   } catch (error) {
     return res.status(400).json(error)
   }
