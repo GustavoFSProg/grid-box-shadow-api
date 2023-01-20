@@ -3,8 +3,22 @@ import { PrismaClient } from '@prisma/client'
 import * as Yup from 'yup'
 import { parsePhoneNumber } from 'libphonenumber-js'
 import { cnpj, cpf } from 'cpf-cnpj-validator'
+import TransactionsService from '../services/transactionService'
 
 const prisma = new PrismaClient()
+
+type TransType = {
+  cartCode: String
+  paymentType: String
+  installments: String
+  customer: String
+  billing: String
+  creditCard: String
+  // TransactionsService: any
+}
+
+
+
 
 async function getAll(req: Request, res: Response) {
   try {
@@ -33,15 +47,26 @@ async function getAll(req: Request, res: Response) {
 // }
  
 
-async function register(req: Request, res: Response) {
-  try {
+async function registerTransacitons(
+    // { cartCode,
+    // paymentType,
+    // installments,
+    // customer,
+    // billing,
+    // creditCard }: TransType,
+  
+  req: Request, res: Response) {
+  try {  
+
+    
+  
     const schema = Yup.object({
       cartCode: Yup.string().required(),
       installments: Yup.number().min(1).max(12),
-        // .min(1)
-        // .when('paymentType', (paymentType, schema) =>
-        //   paymentType === 'credit_card' ? schema.max(12) : schema.max(1)
-        // ),
+      // .min(1)
+      // .when('paymentType', (paymentType, schema) =>
+      //   paymentType === 'credit_card' ? schema.max(12) : schema.max(1)
+      // ),
 
       paymentType: Yup.mixed().oneOf(['billet', 'credit_card']).required(),
       total: Yup.string().required(),
@@ -56,7 +81,7 @@ async function register(req: Request, res: Response) {
       //   "${path} is not a valide CPF / CNPJ",
       //     (value: any) => cpf.isValid(value) || cnpj.isValid(value)),
 
-customerDocument: Yup.string().required(),
+      customerDocument: Yup.string().required(),
       // billingAdress: Yup.string().required(),
       billingNumber: Yup.string().required(),
       billingNeightborhood: Yup.string().required(),
@@ -78,6 +103,18 @@ customerDocument: Yup.string().required(),
       }),
     })
 
+     const Cart = await prisma.cart.findFirst({
+            where: {
+              id: req.body.cartCode,
+            },
+          })
+    
+
+      if (!Cart) {
+        return res.status(400).send({ error: 'Cart error' })
+      }
+      
+
     if (!(await schema.isValid(req.body))) {
       return res.json({ msg: 'Erro on Validate Schema' })
     } else {
@@ -88,10 +125,7 @@ customerDocument: Yup.string().required(),
           paymentType: req.body.paymentType,
           status: req.body.status,
           installments: req.body.installments,
-
-
           total: Number(req.body.total),
-          // total: req.body.total,
           transactionId: req.body.transactionId,
           processorResponse: req.body.processorResponse,
 
@@ -114,34 +148,55 @@ customerDocument: Yup.string().required(),
           creditCardHolderName: req.body.creditCardHolderName,
           creditCardCvv: req.body.creditCardCvv,
           creditCardExpiration: req.body.creditCardExpiration,
-
-       
-        
-      
         }
-})
+      })
+           
+
+         
+      return res.status(400).send({ success: 'TRansations sucssess!!' })
       
-    
+
     }
+  } catch (error) {
+    
+    return res.status(400).send({ error: 'error' })
+
+  }
+  }
+ 
+   
+    // if (!dataRegister) {
+    //   return res.status(400).send({ error: 'error na transação' })
+    // }
     
 
-    return res.status(200).json({ msg: 'Register Success!!' })
-  } catch (error) {
-    return res.status(400).json(error)
-  }
-}
+    //     return res.status(200).json({ msg: 'Register Success!!' })
+    //   } catch (error) {
+    //     return res.status(400).json(error)
+    //   }
+    // }
 
-async function RemoveOnetransactions(req: Request, res: Response) {
-  try {
-    await prisma.transactions.delete({
-      where: { id: req.params.id },
-    })
 
-    return res.status(200).json({ msg: 'Deleted Success!!' })
-  } catch (error) {
-    return res.status(400).json(error)
-  }
-}
+      
+     
+
+
+  
+  
+  
+
+
+
+// async function RemoveOnetransactions(req: Request, res: Response) {
+
+
+//     await prisma.transactions.delete({
+//       where: { id: req.params.id },
+//     })
+
+//     return res.status(200).json({ msg: 'Deleted Success!!' })
+//   } 
+// }
 
 async function RemoveAll(req: Request, res: Response) {
   try {
@@ -153,4 +208,4 @@ async function RemoveAll(req: Request, res: Response) {
   }
 }
 
-export default { getAll, register, RemoveOnetransactions, RemoveAll }
+export default { getAll, RemoveAll, registerTransacitons }

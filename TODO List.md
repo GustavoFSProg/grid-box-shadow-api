@@ -11,3 +11,7 @@
 6- CAd CAtegoryas
 
 7 - Carrinho
+
+CPF: 485.780.270-86
+
+CNPJ: 19.182.060/0001-09
